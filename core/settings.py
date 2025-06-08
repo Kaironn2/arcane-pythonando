@@ -134,6 +134,7 @@ MESSAGE_TAGS = {
 Q_CLUSTER = {
     'name': 'arcane',
     'workers': 1,
+    'timeout': 90,
     'retry': 120,
     'queue_limit': 50,
     'orm': 'default',
