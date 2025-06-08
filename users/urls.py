@@ -7,7 +7,7 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('permissions/', views.permissions, name='permissions'),
     path(
-        'manager_permission/<int:id>', views.manager_permission,
+        'manager-permission/<int:id>', views.manager_permission,
         name='manager_permission'
     )
 ]

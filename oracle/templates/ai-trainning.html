@@ -4,23 +4,23 @@
 
 {% block content %}
     <main>
-        <header class="relative isolate bg-lime-200/80">
+        <header class="relative isolate bg-orange-600/80">
             <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
                 <div class="mx-auto flex max-w-2xl items-center justify-between gap-x-8 lg:mx-0 lg:max-w-none">
                     <div class="flex items-center gap-x-6">
                         <img src="{% static 'img/arcane.png' %}" alt="" class="w-1/3">
                         <h1>
-                            <div class="text-sm/6 text-gray-500">Upload</div>
-                            <div class="mt-1 text-base font-semibold text-gray-900">Treinamento da IA</div>
+                            <div class="text-sm/6 text-white">Upload</div>
+                            <div class="mt-1 text-base font-semibold text-white">Treinamento da IA</div>
                         </h1>
                     </div>
                     <div class="flex items-center gap-x-4 sm:gap-x-6">
                         <a href="{% url 'ai_trainning' %}"
                            type="button"
-                           class="hidden text-sm/6 font-semibold text-gray-900 sm:block">Treinamento da IA</a>
-                          <a href=""
+                           class="hidden text-sm/6 font-semibold text-white sm:block">Treinamento da IA</a>
+                          <a href="{% url 'chat' %}"
                            type="button"
-                           class="hidden text-sm/6 font-semibold text-gray-900 sm:block">Perguntar</a>
+                           class="hidden text-sm/6 font-semibold text-white sm:block">Perguntar</a>
                     </div>
                 </div>
             </div>
@@ -44,22 +44,27 @@
                                 </thead>
                                 <tbody class="bg-white">
                                   
-                                 
-                                    <tr class="even:bg-gray-50">
-                                      <td class="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-3">
-                                        nome
-                                      </td>
-                                      <td class="px-3 py-4 text-sm whitespace-nowrap text-gray-500">
-                                        data
-                                      </td>
-                                      <td class="px-3 py-4 text-sm whitespace-nowrap">
-                                        
-                                          <span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-green-800 text-xs font-medium">
-                                            ✅
-                                          </span>
-                                        
-                                        </td>
-                                    </tr>                                 
+                                    {% for task in tasks %}
+                                        <tr class="even:bg-gray-50">
+                                            <td class="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-3">
+                                            {{ task.name }}
+                                            </td>
+                                            <td class="px-3 py-4 text-sm whitespace-nowrap text-gray-500">
+                                            {{ task.started|default:"—" }}
+                                            </td>
+                                            <td class="px-3 py-4 text-sm whitespace-nowrap">
+                                            {% if task.success %}
+                                                <span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-green-800 text-xs font-medium">
+                                                ✅
+                                                </span>
+                                            {% elif task.stopped and not task.success %}
+                                                <span class="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-red-800 text-xs font-medium">
+                                                ❌
+                                                </span>
+                                            {% endif %}
+                                            </td>
+                                        </tr>                                 
+                                    {% endfor %}                                   
                                              
                                 </tbody>
                               </table>
@@ -128,7 +133,7 @@
                             </div>
                             <div class="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
                                 <button type="submit"
-                                        class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                        class="rounded-md bg-orange-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-orange-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
                                     Treinar IA
                                 </button>
                             </div>
