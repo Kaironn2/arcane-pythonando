@@ -39,10 +39,10 @@ The system works with different types of inputs:
 
 - Python
 - BeautifulSoup4
-- PyMuPDF / PDFPlumber
+- Langchain
 - FAISS
-- OpenAI / Hugging Face (embeddings & LLM)
-- FastAPI or Flask (chat backend)
+- OpenAI (embeddings & LLM)
+- Django (chat backend)
 - EvolutionAPI (for WhatsApp)
 
 ---
@@ -82,12 +82,12 @@ Este sistema suporta múltiplas formas de entrada:
    - As mensagens recebidas via EvolutionAPI são processadas da mesma forma.
    - As respostas são enviadas de volta com ou sem links de referência.
 
-### 🧰 Stack Tecnológico
+### 🧰 Tech Stack
 
 - Python
 - BeautifulSoup4
 - PyMuPDF / PDFPlumber
 - FAISS
-- OpenAI / Hugging Face (embeddings e LLM)
-- FastAPI ou Flask (backend do chat)
+- OpenAI (embeddings e LLM)
+- Django (backend do chat)
 - EvolutionAPI (para WhatsApp)
