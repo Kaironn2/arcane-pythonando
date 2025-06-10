@@ -1,85 +1,95 @@
-# 🤖 My DRF API – CRUD + Statistics + JWT
+# 🤖 RAG-Pipeline – Context Builder + Chat + WhatsApp
 
 ## English
 
----
-
 ### 📟 Short Description
 
-A robust API built with Django Rest Framework, offering comprehensive CRUD operations, advanced statistical insights (averages, totals), and secure access via JWT authentication. Includes Django commands for CSV processing and database seeding using the Rest Countries API.
+System for building a full RAG (Retrieval-Augmented Generation) pipeline using web scraping, PDF/text ingestion, and FAISS vector storage. Includes a real-time chat with source display and optional WhatsApp integration via EvolutionAPI.
 
 ### 📄 Long Description
 
-This repository hosts a powerful API developed with **Django Rest Framework (DRF)**. It's designed to go beyond basic data management, providing valuable statistical analysis alongside standard CRUD functionalities.
+RAG-Pipeline is a tool to ingest and process contextual data from various sources and serve it in a context-aware chat interface using a Retrieval-Augmented Generation (RAG) approach.
 
-The system incorporates several key features:
+The system works with different types of inputs:
 
-* **JWT Authentication**: Ensures secure API access by leveraging JSON Web Tokens (JWT) for user authentication.
-* **Django Commands for Data Processing**: Custom Django management commands facilitate the efficient processing of `.csv` files and seamless data insertion into the database.
-* **Database Seeding with Rest Countries API**: Includes specialized commands to automatically populate database tables, such as nationalities, by fetching up-to-date data from the [Rest Countries API](https://restcountries.com/).
-* **Serializers**: Utilizes DRF's powerful serializers for effective data serialization and deserialization, streamlining data handling.
-* **RESTful API Endpoints**: Provides a well-structured set of RESTful API endpoints for interacting with various data resources.
-* **Signals**: Employs Django signals to trigger specific actions or logic in response to various database events, enhancing data integrity and automation.
-* **Advanced Statistical Insights**: Offers more than just basic data retrieval; the API calculates and provides statistical information, including averages, totals, and other aggregated metrics to support data analysis.
+- Performs **web scraping** using BeautifulSoup to extract content from websites.
+- Processes **PDFs or raw text** provided by the user.
+- Generates **embeddings** for all content and stores them using **FAISS**.
+- Supports **RAG-based Q&A**, where a language model answers based on retrieved context.
+- Answers are shown in a **chat interface with source links**.
+- Optional integration with **WhatsApp** via **EvolutionAPI**, allowing users to ask questions directly from WhatsApp.
 
 ### 🔄 Process Flow
 
-1.  **Data Ingestion**: Data can be inserted via API endpoints, or through Django commands by processing `.csv` files.
-2.  **Database Seeding**: Specific commands can be run to fetch external data (e.g., nationalities from Rest Countries API) and populate the database.
-3.  **Data Processing**: Incoming data can trigger Django signals for validation, cleaning, or additional processing before being saved.
-4.  **API Requests**: Users send authenticated requests to various RESTful endpoints.
-5.  **Response Generation**: The API processes requests, interacts with the database (for CRUD), and performs calculations for statistical endpoints.
-6.  **Data Serialization**: DRF serializers transform database objects into structured API responses (JSON).
-7.  **Authentication**: Every request is validated against JWT tokens to ensure authorized access.
+1. User inputs:
+   - A target website URL for scraping.
+   - A PDF or text.
+2. The system extracts and cleans the text.
+3. Embeddings are generated using OpenAI or another LLM provider.
+4. All embeddings are stored in a FAISS vector store.
+5. When the user asks a question:
+   - The system searches the most relevant chunks in FAISS.
+   - Constructs a prompt and calls the LLM to generate an answer.
+   - Displays the streamed answer with source references.
+6. If WhatsApp integration is active:
+   - Messages received via EvolutionAPI are processed the same way.
+   - Replies are sent back to the user on WhatsApp with optional links.
 
 ### 🧰 Tech Stack
 
-* Python
-* Django
-* Django Rest Framework (DRF)
-* Django REST Simple JWT
-* `requests` (for external API calls like Rest Countries)
-* PostgreSQL (or your chosen database)
+- Python
+- BeautifulSoup4
+- Langchain
+- FAISS
+- OpenAI (embeddings & LLM)
+- Django (chat backend)
+- EvolutionAPI (for WhatsApp)
+- DjangoQ
 
 ---
 
 ## Português
 
----
-
 ### 📟 Descrição Curta
 
-Uma API robusta construída com Django Rest Framework, oferecendo operações CRUD completas, insights estatísticos avançados (médias, totais) e acesso seguro via autenticação JWT. Inclui comandos Django para processamento de CSV e preenchimento de banco de dados usando a API Rest Countries.
+Sistema para montar uma pipeline completa de RAG (Retrieval-Augmented Generation) com scraping, ingestão de PDFs/texto e armazenamento em vetor FAISS. Inclui chat em tempo real com exibição de fontes e integração opcional com WhatsApp via EvolutionAPI.
 
 ### 📄 Descrição Longa
 
-Este repositório hospeda uma poderosa API desenvolvida com **Django Rest Framework (DRF)**. Ela foi projetada para ir além do gerenciamento básico de dados, fornecendo análises estatísticas valiosas juntamente com as funcionalidades CRUD padrão.
+O RAG-Pipeline permite construir uma base de conhecimento contextual com dados extraídos de diferentes fontes e utilizá-la em uma interface de chat inteligente usando o conceito de RAG (Geração Aumentada por Recuperação).
 
-O sistema incorpora várias características-chave:
+Este sistema suporta múltiplas formas de entrada:
 
-* **Autenticação JWT**: Garante acesso seguro à API utilizando JSON Web Tokens (JWT) para autenticação de usuários.
-* **Django Commands para Processamento de Dados**: Comandos de gerenciamento Django personalizados facilitam o processamento eficiente de arquivos `.csv` e a inserção contínua de dados no banco de dados.
-* **Preenchimento do Banco de Dados com a Rest Countries API**: Inclui comandos especializados para popular automaticamente tabelas do banco de dados, como nacionalidades, buscando dados atualizados da [Rest Countries API](https://restcountries.com/).
-* **Serializers**: Utiliza os poderosos serializers do DRF para serialização e desserialização eficazes de dados, otimizando o manuseio das informações.
-* **Endpoints de API RESTful**: Fornece um conjunto bem estruturado de endpoints de API RESTful para interagir com vários recursos de dados.
-* **Signals**: Emprega sinais do Django para disparar ações ou lógicas específicas em resposta a vários eventos do banco de dados, aprimorando a integridade e a automação dos dados.
-* **Insights Estatísticos Avançados**: Oferece mais do que apenas a recuperação básica de dados; a API calcula e fornece informações estatísticas, incluindo médias, totais e outras métricas agregadas para apoiar a análise de dados.
+- Faz **web scraping** com BeautifulSoup para extrair conteúdo de sites.
+- Processa **PDFs ou textos brutos** fornecidos pelo usuário.
+- Gera **embeddings** de todos os conteúdos e armazena com **FAISS**.
+- Utiliza **RAG** para responder perguntas com base no conteúdo extraído.
+- As respostas são exibidas em um **chat com links para as fontes utilizadas**.
+- Integração opcional com **WhatsApp** via **EvolutionAPI**, permitindo perguntas diretamente pelo app.
 
 ### 🔄 Fluxo do Processo
 
-1.  **Ingestão de Dados**: Os dados podem ser inseridos via endpoints da API, ou através de comandos Django processando arquivos `.csv`.
-2.  **Preenchimento do Banco de Dados**: Comandos específicos podem ser executados para buscar dados externos (ex: nacionalidades da Rest Countries API) e popular o banco de dados.
-3.  **Processamento de Dados**: Dados recebidos podem disparar sinais do Django para validação, limpeza ou processamento adicional antes de serem salvos.
-4.  **Requisições da API**: Usuários enviam requisições autenticadas para vários endpoints RESTful.
-5.  **Geração de Resposta**: A API processa as requisições, interage com o banco de dados (para CRUD) e realiza cálculos para os endpoints estatísticos.
-6.  **Serialização de Dados**: Serializers do DRF transformam objetos do banco de dados em respostas estruturadas da API (JSON).
-7.  **Autenticação**: Cada requisição é validada contra tokens JWT para garantir acesso autorizado.
+1. O usuário fornece:
+   - Um link de site para scraping.
+   - Um PDF ou texto.
+2. O sistema extrai e limpa os textos.
+3. Gera embeddings com OpenAI ou outro provedor de LLM.
+4. Armazena tudo no banco vetorial FAISS.
+5. Ao fazer uma pergunta:
+   - Busca os trechos mais relevantes no FAISS.
+   - Monta o prompt e chama o modelo de linguagem para gerar a resposta.
+   - Exibe a resposta em streaming com referências das fontes.
+6. Se a integração com WhatsApp estiver ativa:
+   - As mensagens recebidas via EvolutionAPI são processadas da mesma forma.
+   - As respostas são enviadas de volta com ou sem links de referência.
 
 ### 🧰 Tech Stack
 
-* Python
-* Django
-* Django Rest Framework (DRF)
-* Django REST Simple JWT
-* `requests` (para chamadas a APIs externas como Rest Countries)
-* PostgreSQL (ou seu banco de dados de escolha)
+- Python
+- BeautifulSoup4
+- PyMuPDF / PDFPlumber
+- FAISS
+- OpenAI (embeddings e LLM)
+- Django (backend do chat)
+- EvolutionAPI (para WhatsApp)
+- DjangoQ
